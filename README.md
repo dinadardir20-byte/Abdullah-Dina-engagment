@@ -1,15 +1,29 @@
-# Abdullah Dina Engagement
+# Abdullah & Dina Engagement Invitation
 
-This is the initial README file for the Abdullah Dina Engagement repository.
+A single-page React + Vite invitation website for Abdullah & Dina's engagement celebration on **June 26, 2026**.
 
-## Overview
+## Tech Stack
+- React + Vite
+- Tailwind CSS
+- Framer Motion
+- AOS (Animate On Scroll)
+- Lucide React + FontAwesome
 
-This repository is intended for tracking and managing the engagement activities.
+## Run Locally
+```bash
+npm install
+npm run dev
+```
 
-## License
+## Build
+```bash
+npm run build
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Deploy to GitHub Pages
+```bash
+npm run deploy
+```
 
-## Acknowledgments
-
-Special thanks to everyone involved in making this project a success!
+The project is configured with Vite base path:
+`/Abdullah-Dina-engagment/`
