@@ -15,8 +15,9 @@ export default {
         },
       },
       fontFamily: {
-        calligraphy: ['"Great Vibes"', 'cursive'],
-        serif: ['"Cormorant Garamond"', 'serif'],
+        calligraphy: ['"Playfair Display"', 'serif'],
+        serif: ['"Playfair Display"', 'serif'],
+        sans: ['Poppins', 'sans-serif'],
       },
     },
   },
