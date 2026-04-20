@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Heart, MapPinHouse } from 'lucide-react'
 import { motion as Motion, useScroll, useTransform } from 'framer-motion'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { CalendarDays, Clock3, MapPin } from 'lucide-react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import Hero from './components/Hero'
+import Countdown from './components/Countdown'
+import Venue from './components/Venue'
+import Timeline from './components/Timeline'
+import RSVP from './components/RSVP'
 
 const EVENT_DATE = new Date('2026-06-26T00:00:00')
 
@@ -18,7 +21,6 @@ const timelineEvents = [
 const initialFormState = {
   name: '',
   attendance: 'yes',
-  note: '',
 }
 
 const getCountdown = () => {
@@ -122,169 +124,31 @@ function App() {
           animate={{ opacity: 0, scale: 1.5, y: -65 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
           className="pointer-events-none fixed z-50 text-gold"
-          style={{ left: heart.x - 8, top: heart.y - 8 }}
+          style={{ left: heart.x - 12, top: heart.y - 12 }}
           aria-hidden="true"
         >
-          <FontAwesomeIcon icon={faHeart} />
+          <Heart size={18} fill="currentColor" />
         </Motion.div>
       ))}
 
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-20 px-4 pb-20 pt-8 sm:px-8">
-        <section className="flex min-h-[90vh] items-center justify-center" aria-label="Invitation envelope">
-          <div className="w-full max-w-xl text-center" data-aos="zoom-in">
-            <p className="font-calligraphy text-4xl text-dusty-rose sm:text-5xl">Abdullah & Dina</p>
-            <div className="mt-5 rounded-3xl border border-gold/30 bg-white/55 p-6 shadow-2xl backdrop-blur-sm sm:p-9">
-              <div className="envelope-shell mx-auto max-w-md rounded-2xl bg-cream p-4 shadow-xl">
-                <Motion.div
-                  animate={isOpen ? { rotateX: -145, y: -40 } : { rotateX: 0, y: 0 }}
-                  transition={{ type: 'spring', stiffness: 80, damping: 12 }}
-                  className="envelope-flap"
-                />
-
-                <Motion.div
-                  animate={isOpen ? { y: -100, opacity: 1 } : { y: 20, opacity: 0.9 }}
-                  transition={{ duration: 0.9, ease: 'easeOut' }}
-                  className="invitation-card"
-                >
-                  <p className="font-calligraphy text-4xl text-dusty-rose">You are invited</p>
-                  <h1 className="mt-2 font-serif text-4xl font-semibold text-sage-900">Abdullah & Dina</h1>
-                  <p className="mt-4 text-sm leading-relaxed text-sage-800 sm:text-base">
-                    We are so happy to finally celebrate our engagement with the people who mean the most
-                    to us. You&apos;ve all been such a big part of our lives, and we can&apos;t wait to have
-                    you by our side as we start this new chapter.
-                  </p>
-                </Motion.div>
-
-                {!isOpen && (
-                  <Motion.button
-                    type="button"
-                    whileTap={{ scale: 0.92 }}
-                    onClick={() => setIsOpen(true)}
-                    className="wax-seal"
-                    aria-label="Open the invitation envelope"
-                  >
-                    A & D
-                  </Motion.button>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-white/60 bg-white/65 p-6 shadow-xl backdrop-blur-sm sm:p-8" data-aos="fade-up">
-          <div className="mb-6 flex items-center justify-center gap-2 text-gold">
-            <Clock3 size={20} />
-            <h2 className="font-serif text-2xl font-semibold text-sage-900">Countdown to June 26, 2026</h2>
-          </div>
-          <div className="grid grid-cols-2 gap-4 text-center sm:grid-cols-4">
-            {countdownItems.map((item) => (
-              <div key={item.label} className="rounded-2xl border border-dusty-rose/30 bg-cream/85 px-3 py-4">
-                <p className="text-3xl font-bold text-sage-900">{item.value}</p>
-                <p className="text-sm uppercase tracking-[0.2em] text-dusty-rose">{item.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-white/60 bg-white/65 p-6 shadow-xl backdrop-blur-sm sm:p-8" data-aos="fade-up">
-          <div className="mb-4 flex items-center justify-center gap-2 text-gold">
-            <MapPin size={20} />
-            <h2 className="font-serif text-2xl font-semibold text-sage-900">Agamy Garden</h2>
-          </div>
-          <p className="mx-auto mb-6 max-w-2xl text-center text-sage-800">
-            Join us in the peaceful beauty of Agamy Garden for an evening filled with love, laughter,
-            and unforgettable memories.
-          </p>
-          <div className="overflow-hidden rounded-2xl border border-dusty-rose/40">
-            <iframe
-              title="Agamy Garden location"
-              src="https://www.google.com/maps?q=Agamy%20Garden&output=embed"
-              className="h-72 w-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </div>
-          <p className="mt-3 text-center text-sm text-sage-700">
-            <FontAwesomeIcon icon={faLocationDot} className="mr-2 text-gold" />
-            Alexandria, Egypt
-          </p>
-        </section>
-
-        <section className="rounded-3xl border border-white/60 bg-white/65 p-6 shadow-xl backdrop-blur-sm sm:p-8" data-aos="fade-up">
-          <div className="mb-6 flex items-center justify-center gap-2 text-gold">
-            <CalendarDays size={20} />
-            <h2 className="font-serif text-2xl font-semibold text-sage-900">Engagement Timeline</h2>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {timelineEvents.map((event, index) => (
-              <Motion.article
-                key={event.title}
-                whileHover={{ rotateX: -4, rotateY: index % 2 === 0 ? 4 : -4, y: -6 }}
-                transition={{ duration: 0.3 }}
-                className="timeline-card rounded-2xl border border-dusty-rose/30 bg-cream/90 p-5 shadow-lg"
-                data-aos={index % 2 === 0 ? 'fade-right' : 'fade-left'}
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-dusty-rose">{event.time}</p>
-                <h3 className="mt-2 text-xl font-semibold text-sage-900">{event.title}</h3>
-                <p className="mt-2 text-sage-800">{event.detail}</p>
-              </Motion.article>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-3xl border border-white/60 bg-white/65 p-6 shadow-xl backdrop-blur-sm sm:p-8" data-aos="fade-up">
-          <h2 className="mb-4 text-center font-serif text-2xl font-semibold text-sage-900">RSVP</h2>
-          <form onSubmit={handleSubmit} className="mx-auto flex max-w-xl flex-col gap-4" noValidate>
-            <label className="text-sm font-medium text-sage-900" htmlFor="guest-name">
-              Full Name
-            </label>
-            <input
-              id="guest-name"
-              type="text"
-              value={formData.name}
-              onChange={(event) => setFormData((prev) => ({ ...prev, name: event.target.value }))}
-              className="rounded-xl border border-dusty-rose/40 bg-cream/90 px-4 py-3 outline-none transition focus:border-gold"
-              placeholder="Enter your name"
-              required
-            />
-
-            <label className="text-sm font-medium text-sage-900" htmlFor="attendance">
-              Attendance
-            </label>
-            <select
-              id="attendance"
-              value={formData.attendance}
-              onChange={(event) => setFormData((prev) => ({ ...prev, attendance: event.target.value }))}
-              className="rounded-xl border border-dusty-rose/40 bg-cream/90 px-4 py-3 outline-none transition focus:border-gold"
-            >
-              <option value="yes">Joyfully attending</option>
-              <option value="no">Regretfully cannot attend</option>
-            </select>
-
-            <label className="text-sm font-medium text-sage-900" htmlFor="note">
-              Message (Optional)
-            </label>
-            <textarea
-              id="note"
-              rows="4"
-              value={formData.note}
-              onChange={(event) => setFormData((prev) => ({ ...prev, note: event.target.value }))}
-              className="rounded-xl border border-dusty-rose/40 bg-cream/90 px-4 py-3 outline-none transition focus:border-gold"
-              placeholder="Leave Abdullah & Dina a sweet note"
-            />
-
-            {formError && <p className="text-sm text-red-600">{formError}</p>}
-            {submitted && <p className="text-sm text-sage-800">Thank you! Your RSVP has been recorded.</p>}
-
-            <button
-              type="submit"
-              className="rounded-xl bg-sage-green px-5 py-3 font-semibold text-white transition hover:brightness-95"
-            >
-              Send RSVP
-            </button>
-          </form>
-        </section>
+        <Hero isOpen={isOpen} onOpen={() => setIsOpen(true)} />
+        <Countdown countdownItems={countdownItems} />
+        <Venue />
+        <Timeline timelineEvents={timelineEvents} />
+        <RSVP
+          formData={formData}
+          setFormData={setFormData}
+          formError={formError}
+          submitted={submitted}
+          handleSubmit={handleSubmit}
+        />
       </main>
+
+      <p className="fixed bottom-4 right-4 flex items-center gap-2 rounded-full bg-white/70 px-3 py-2 text-xs text-sage-800 shadow-lg backdrop-blur-sm">
+        <MapPinHouse size={14} className="text-gold" />
+        Agamy Garden • June 26, 2026
+      </p>
     </div>
   )
 }
